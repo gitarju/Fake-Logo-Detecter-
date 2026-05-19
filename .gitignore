@@ -17,6 +17,7 @@ venv.bak/
 runs/
 yolo_dataset/
 dataset/
+models/
 
 temp_upload.jpg
 output.jpg
