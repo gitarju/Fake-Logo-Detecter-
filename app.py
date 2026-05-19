@@ -235,16 +235,28 @@ st.markdown("""
 
 @st.cache_resource
 def load_models():
-    import glob
-    # Cache buster to force Streamlit to reload the updated LogoVerifier class
-    # Switched to PyTorch ResNet18 Cosine Similarity
+    import urllib.request
     
+    os.makedirs('models', exist_ok=True)
     model_path = 'models/best.pt'
-    if os.path.exists(model_path):
-        detector = LogoDetector(model_path=model_path)
+    
+    if not os.path.exists(model_path):
+        # UPDATE THIS URL once you upload best.pt to HuggingFace!
+        hf_url = "https://huggingface.co/your-username/your-repo/resolve/main/best.pt"
+        
+        if "your-username" not in hf_url:
+            print("Downloading custom YOLO model from Hugging Face...")
+            try:
+                urllib.request.urlretrieve(hf_url, model_path)
+                detector = LogoDetector(model_path=model_path)
+            except Exception as e:
+                print(f"Failed to download model: {e}. Falling back to yolov8n.pt")
+                detector = LogoDetector(model_path='yolov8n.pt')
+        else:
+            # Fallback if URL hasn't been updated yet
+            detector = LogoDetector(model_path='yolov8n.pt')
     else:
-        # Fallback to base YOLOv8 model if custom weights are missing
-        detector = LogoDetector(model_path='yolov8n.pt')
+        detector = LogoDetector(model_path=model_path)
         
     verifier = LogoVerifier(reference_dir='reference_logos')
     return detector, verifier
