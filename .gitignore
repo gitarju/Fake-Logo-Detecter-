@@ -16,6 +16,7 @@ venv.bak/
 # Project specifics
 runs/
 yolo_dataset/
+dataset/
 
 temp_upload.jpg
 output.jpg
