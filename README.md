@@ -1,5 +1,7 @@
 # Precision Product Verification System
 
+🚀 **Live Demo:** [https://fake-logo-detection.streamlit.app/](https://fake-logo-detection.streamlit.app/)
+
 ## Overview
 This project is a computer vision pipeline designed to verify the authenticity of physical products by analyzing their brand logos. It compares a product photo against a verified digital reference logo to detect counterfeits based on structural geometry, color accuracy, and micro-defects.
 
